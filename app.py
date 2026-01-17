@@ -179,6 +179,10 @@ if st.button("🚀 Predict Scour Depth"):
 # =================================================
 st.markdown("---")
 st.caption(
-    "🔬 Developed for Research-oriented GUI developed using Streamlit by Mir et al| "
-    "RF & GPR models for scour depth prediction"
+    "🔬 Developed by Ajaz Ahmad Mir, Research Scholar, "
+    "Dr B R Ambedkar National Institute of Technology Jalandhar | "
+    "Streamlit-based research GUI for scour depth prediction using "
+    "Random Forest and Gaussian Process Regression models"
+)
+
 )
