@@ -9,7 +9,7 @@ scaler = pickle.load(open("scaler.pkl", "rb"))
 
 st.set_page_config(page_title="Scour Depth Predictor", layout="centered")
 
-st.title("🌊 Scour Depth Prediction Tool")
+st.title("🌊 Ice Covered Scour Depth GUI")
 st.markdown("Machine Learning based prediction using RF and GPR")
 
 model_choice = st.selectbox(
