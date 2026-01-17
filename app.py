@@ -58,7 +58,7 @@ st.markdown(
 # =================================================
 # Title and description
 # =================================================
-st.title("🌊 GUI Tool for Ice-Covered Scour Depth ")
+st.title("🌊 GUI Tool for Ice-Covered Scour Depth Prediction ")
 st.markdown(
     """
     ### Machine Learning–based prediction of scour depth under ice-covered scenarios  
