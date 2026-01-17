@@ -61,7 +61,7 @@ st.markdown(
 st.title("🌊 Ice Covered Scour Depth GUI Tool")
 st.markdown(
     """
-    ### Machine Learning–based prediction of local scour depth  
+    ### Machine Learning–based prediction of local scour depth under ice covered scenarios  
     **Models used:** Random Forest (RF) & Gaussian Process Regression (GPR)
     """
 )
