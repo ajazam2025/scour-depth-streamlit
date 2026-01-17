@@ -182,4 +182,4 @@ st.caption(
     "🔬 Developed by Ajaz Ahmad Mir, Research Scholar, "
     "Dr B R Ambedkar National Institute of Technology Jalandhar | "
     "Streamlit-based research GUI for scour depth prediction using "
-    "Random Forest and Gaussian Process Regression models"
+    "Random Forest and Gaussian Process Regression models")
