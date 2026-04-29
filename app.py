@@ -158,4 +158,3 @@ st.caption(
     "🔬 Developed by Ajaz Mir, Research Scholar, "
     "Dr B R Ambedkar National Institute of Technology Jalandhar | "
     "AI-based geomorphology tool for roughness prediction"
-)
