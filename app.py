@@ -11,44 +11,43 @@ from sklearn.ensemble import AdaBoostRegressor
 st.set_page_config(layout="centered")
 
 # -------------------------------
-# CSS (STRONG VISUAL CHANGE)
+# CLEAN CSS (MINIMAL + SHARP)
 # -------------------------------
 st.markdown("""
 <style>
-
-/* Whole background */
-.stApp {
-    background: linear-gradient(to bottom, #e3f2fd, #ffffff);
+section.main > div {
+    max-width: 420px;
+    margin: auto;
 }
 
-/* Title block */
-.title-box {
-    background:#0d47a1;
-    padding:20px;
-    border-radius:15px;
+/* Header */
+.header {
     text-align:center;
-    color:white;
+    padding:10px;
+    border-bottom:2px solid #1976d2;
     margin-bottom:10px;
 }
-
-.subtitle {
-    font-size:15px;
+.header h2 {
+    margin:0;
+    color:#0d47a1;
+}
+.header p {
+    margin:0;
+    font-size:13px;
+    color:#555;
 }
 
-/* Section box */
-.section {
-    background:white;
-    padding:15px;
-    border-radius:12px;
-    margin-top:10px;
-    box-shadow:0px 3px 10px rgba(0,0,0,0.1);
+/* Cards */
+.card {
+    background:#ffffff;
+    padding:12px;
+    border-radius:10px;
+    margin-top:8px;
+    border-left:4px solid #1976d2;
 }
 
-/* Result box */
-.result-box {
-    background:#c8e6c9;
-    padding:20px;
-    border-radius:15px;
+/* Result */
+.result {
     text-align:center;
     font-size:26px;
     font-weight:bold;
@@ -58,10 +57,8 @@ st.markdown("""
 /* Button */
 .stButton>button {
     width:100%;
-    height:3em;
-    font-size:16px;
-    border-radius:10px;
-    background:#1565c0;
+    border-radius:8px;
+    background:#1976d2;
     color:white;
 }
 
@@ -69,32 +66,28 @@ st.markdown("""
 .footer {
     text-align:center;
     font-size:12px;
-    color:#555;
-    margin-top:15px;
+    color:#666;
+    margin-top:10px;
 }
-
 </style>
 """, unsafe_allow_html=True)
 
 # -------------------------------
-# HEADER (NOW CLEARLY DIFFERENT)
+# HEADER (VISIBLE & CLEAN)
 # -------------------------------
 st.markdown("""
-<div class="title-box">
-<h2>🌊 Hydraulic Roughness Predictor</h2>
-<div class="subtitle">
-AI Applications in Geomorphology
-</div>
+<div class="header">
+<h2>Hydraulic Roughness Predictor</h2>
+<p>AI Applications in Geomorphology</p>
 </div>
 """, unsafe_allow_html=True)
 
 # -------------------------------
-# DATA
+# DATA (HIDDEN)
 # -------------------------------
 DATA_CSV = """Fr,Re,H_D,LD,Slope_S,u_star,Manning_n
-0.5015,543478,1.67,2,0.0005,0.3395,0.00368
-0.2094,217391,1.64,2.5,0.0005,0.3358,0.00888
-0.5537,652173,1.75,2.5,0.0005,0.3466,0.00328
+0.5,500000,1.6,2.5,0.0005,0.3,0.0035
+0.4,400000,1.5,2.0,0.0004,0.25,0.0045
 """
 
 df = pd.read_csv(StringIO(DATA_CSV))
@@ -108,56 +101,45 @@ model = AdaBoostRegressor()
 model.fit(X_scaled, y)
 
 # -------------------------------
-# INPUT SECTION
+# INPUTS (COMPACT)
 # -------------------------------
-st.markdown('<div class="section">', unsafe_allow_html=True)
-st.subheader("🔹 Input Parameters")
+st.markdown('<div class="card">', unsafe_allow_html=True)
 
-Fr = st.number_input("Froude Number (Fr)", value=0.5)
-Re = st.number_input("Reynolds Number (Re)", value=500000.0)
-HD = st.number_input("Relative Submergence (H/D)", value=1.6)
-LD = st.number_input("Spacing Ratio (λ/D)", value=2.5)
-Slope = st.number_input("Channel Slope (S)", value=0.0005)
-u_star = st.number_input("Shear Velocity (u*)", value=0.3)
+Fr = st.number_input("Fr", value=0.5)
+Re = st.number_input("Re", value=500000.0)
+HD = st.number_input("H/D", value=1.6)
+LD = st.number_input("λ/D", value=2.5)
+Slope = st.number_input("Slope", value=0.0005)
+u_star = st.number_input("u*", value=0.3)
 
 st.markdown('</div>', unsafe_allow_html=True)
 
 # -------------------------------
-# DERIVED BLOCK (VISUALLY DIFFERENT)
+# DERIVED
 # -------------------------------
 ratio = u_star / Fr
 
 st.markdown(f"""
-<div class="section">
-<h4>📊 Derived Indicator</h4>
-<b>u* / Fr</b> = {ratio:.3f}
+<div class="card">
+<b>Derived:</b> u*/Fr = {ratio:.3f}
 </div>
 """, unsafe_allow_html=True)
 
 # -------------------------------
-# EQUATIONS (OPTIONAL)
-# -------------------------------
-with st.expander("📐 Governing Equations"):
-    st.latex(r"Fr = \\frac{U}{\\sqrt{gH}}")
-    st.latex(r"n = \\frac{R^{2/3} S^{1/2}}{U}")
-
-# -------------------------------
 # BUTTON
 # -------------------------------
-st.markdown("---")
-predict = st.button("🚀 Predict Manning’s n")
+predict = st.button("Predict")
 
 # -------------------------------
-# RESULT (BIG CENTERED)
+# RESULT
 # -------------------------------
 if predict:
     X_input = np.array([[Fr, Re, HD, LD, Slope, u_star]])
     pred = model.predict(scaler.transform(X_input))[0]
 
     st.markdown(f"""
-    <div class="result-box">
-    Predicted Manning’s n<br><br>
-    {pred:.6f}
+    <div class="card result">
+    n = {pred:.6f}
     </div>
     """, unsafe_allow_html=True)
 
@@ -166,8 +148,6 @@ if predict:
 # -------------------------------
 st.markdown("""
 <div class="footer">
-Developed by Ajaz Mir<br>
-Research Scholar<br>
-Dr B R Ambedkar National Institute of Technology Jalandhar
+Ajaz Mir | NIT Jalandhar
 </div>
 """, unsafe_allow_html=True)
